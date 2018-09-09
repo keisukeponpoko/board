@@ -3,6 +3,10 @@
 @section('title', '掲示板一覧')
 
 @section('content')
+  <div>
+    <a href="{{route('board.create')}}">新規作成</a>
+  </div>
+
   <table>
     <thead>
       <tr>
@@ -13,9 +17,10 @@
     <tbody>
       @foreach ($boards as $board)
         <tr>
-          <td><a href="{{url('thread', $board->id)}}">{{$board->name}}</a></td>
+          <td><a href="{{route('board.thread.index', $board->id)}}">{{$board->name}}</a></td>
           <td>{{$board->description}}</td>
         </tr>
       @endforeach
     </tbody>
+  </table>
 @endsection

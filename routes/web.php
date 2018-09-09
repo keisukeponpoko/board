@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('welcome', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/', 'BoardController@index');
-Route::get('thread/{id}', 'ThreadController@show');
-Route::get('post/{id}', 'PostController@show');
+Route::resource('board', 'BoardController');
+Route::resource('board.thread', 'ThreadController');
+Route::resource('board.thread.post', 'PostController');

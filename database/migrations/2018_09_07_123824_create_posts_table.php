@@ -15,14 +15,16 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('inner_id');
             $table->integer('thread_id');
             $table->string('name');
-            $table->string('message');
+            $table->text('comment');
             $table->text('author_hash');
             $table->text('password');
             $table->text('ip_addr');
             $table->timestamps();
 
+            $table->unique(['thread_id', 'inner_id']);
             $table->foreign('thread_id')->references('id')->on('threads');
         });
     }

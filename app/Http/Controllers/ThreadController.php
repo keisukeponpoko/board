@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Board;
 use App\Thread;
 
 class ThreadController extends Controller
@@ -10,11 +11,14 @@ class ThreadController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $board = Board::find($id);
+        $threads = Thread::withCount('posts')->where('board_id', $id)->get();
+        return view('thread.index', ['board' => $board, 'threads' => $threads]);
     }
 
     /**
@@ -22,9 +26,10 @@ class ThreadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $board = Board::find($id);
+        return view('thread.create', ['board' => $board]);
     }
 
     /**
@@ -33,9 +38,18 @@ class ThreadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($id, Request $request)
     {
-        //
+        $request->validate([
+          'name' => 'required|max:255'
+        ]);
+
+        $thread = new Thread;
+        $thread->name = $request->name;
+        $thread->board_id = $id;
+        $thread->save();
+
+        return redirect(route('board.thread.index', $id));
     }
 
     /**
@@ -46,8 +60,7 @@ class ThreadController extends Controller
      */
     public function show($id)
     {
-        $threads = Thread::where('board_id', $id)->get();
-        return view('thread.show', ['threads' => $threads]);
+        //
     }
 
     /**

@@ -14,6 +14,5 @@ class DatabaseSeeder extends Seeder
         $this->call(BoardTableSeeder::class);
         $this->call(ThreadTableSeeder::class);
         $this->call(PostTableSeeder::class);
-        $this->call(ReplyTableSeeder::class);
     }
 }

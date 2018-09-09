@@ -25,7 +25,7 @@ class BoardController extends Controller
      */
     public function create()
     {
-        //
+        return view('board.create');
     }
 
     /**
@@ -36,7 +36,17 @@ class BoardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+          'name' => 'required|max:255',
+          'description' => 'required'
+        ]);
+
+        $board = new Board;
+        $board->name = $request->name;
+        $board->description = $request->description;
+        $board->save();
+
+        return redirect(route('board.index'));
     }
 
     /**
