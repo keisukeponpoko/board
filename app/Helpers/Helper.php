@@ -24,7 +24,6 @@ class Helper
         $replace = sprintf("<a href='%s#post$2'>$1</a>", $current_path);
         // &gt;&gt; = >> のエスケープ
         $comment = preg_replace('/(&gt;&gt;(\d+))/', $replace, $comment);
-        \Debugbar::info($comment);
 
         return $comment;
     }
