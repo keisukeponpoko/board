@@ -6,6 +6,24 @@
   <h1>{{$board->name}}</h1>
   <a href="{{route('board.index')}}">掲示板一覧に戻る</a>
 
+  <br >
+  <br >
+  <br >
+  <br >
+
+  @foreach ($boards as $item)
+    <a href="{{route('board.thread.index', $item->id)}}">
+      {{$item->name}}
+    </a>
+    <br >
+
+  @endforeach
+
+
+  <br >
+  <br >
+  <br >
+
   <div>
     <a href="{{route('board.thread.create', $board->id)}}">新規作成</a>
   </div>

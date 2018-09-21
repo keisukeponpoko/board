@@ -17,8 +17,11 @@ class ThreadController extends Controller
     public function index($id)
     {
         $board = Board::find($id);
+
+        $boards = Board::all();
+        
         $threads = Thread::withCount('posts')->where('board_id', $id)->get();
-        return view('thread.index', ['board' => $board, 'threads' => $threads]);
+        return view('thread.index', ['boards' => $boards, 'board' => $board, 'threads' => $threads]);
     }
 
     /**
